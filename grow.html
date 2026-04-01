@@ -2824,12 +2824,14 @@ function buildMonths(year) {
   c.innerHTML = "";
   const range = splitMonthRange[currentSplit];
   const now = new Date();
+  const mainCol  = splitColors[currentSplit];
+  const mutedCol = "rgba(255,255,255,0.28)";
   const isCurrentYear = (year === now.getFullYear());
   let idx = 0;
   for (let m = range.start; m <= range.end; m++) {
     const name = monthNames[m - 1];
     const isCurrent = isCurrentYear && (m === now.getMonth() + 1);
-    const col = isCurrent ? todayColors[currentSplit] : splitColors[currentSplit];
+    const col = isCurrent ? mainCol : mutedCol;
     idx++;
     const p = makePanel(name, {month: m}, col);
     c.appendChild(p);
@@ -2868,10 +2870,12 @@ function buildWeeks(year, month) {
     currentWeekNum = Math.max(wNum, 1);
   }
 
+  const mainColW  = splitColors[currentSplit];
+  const mutedColW = "rgba(255,255,255,0.28)";
   let idx = 0;
   for (let w = startW; w <= endW; w++) {
     const isCurrent = (currentWeekNum === w);
-    const col = isCurrent ? todayColors[currentSplit] : splitColors[currentSplit];
+    const col = isCurrent ? mainColW : mutedColW;
     idx++;
     const p = makePanel("WEEK " + w, {week: w}, col);
     c.appendChild(p);
