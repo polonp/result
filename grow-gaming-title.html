@@ -2946,10 +2946,11 @@ function setWeekBg(weekNum) {
   const key = ((weekNum - 1) % 5) + 1;
   const url = weekPhotos[key];
   const isW5 = (key === 5);
-  document.querySelectorAll('.bg-photo').forEach(el => {
-    el.style.backgroundImage = "url('" + url + "')";
-    el.style.filter = isW5 ? "brightness(0.45) saturate(0) grayscale(1)" : "brightness(0.45) saturate(0.6)";
-  });
+  const scrimBg = document.querySelector('#scrim-screen .bg-photo');
+  if (scrimBg) {
+    scrimBg.style.backgroundImage = "url('" + url + "')";
+    scrimBg.style.filter = isW5 ? "brightness(0.45) saturate(0) grayscale(1)" : "brightness(0.45) saturate(0.6)";
+  }
 }
 </script>
 
