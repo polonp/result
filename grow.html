@@ -180,6 +180,14 @@ body { background:#000; width:100vw; height:100vh; overflow:hidden; font-family:
 
 
 
+
+#copyright {
+  position:fixed; bottom:18px; left:24px;
+  font-family:'Barlow',sans-serif; font-size:10px;
+  letter-spacing:0.15em; color:rgba(255,255,255,0.18);
+  z-index:50; pointer-events:none; text-transform:uppercase;
+}
+
 </style>
 </head>
 <body>
@@ -285,7 +293,7 @@ body { background:#000; width:100vw; height:100vh; overflow:hidden; font-family:
       <div class="day-header" style="color:#7c5cbf;">TUE</div>
       <div class="day-blocks">
         <div class="block-slot">
-          <div class="result-card" data-delay="0" onclick="openResultByDate(this)">
+          <div class="result-card" data-delay="0">
             <div class="card-accent" style="background:#7c5cbf;"></div>
             <div class="card-body">
               <div><div class="card-date">03 / 17</div><div class="card-rank no-rank">—</div></div>
@@ -303,7 +311,7 @@ body { background:#000; width:100vw; height:100vh; overflow:hidden; font-family:
       <div class="day-blocks">
         <div class="block-slot"><div class="block-spacer"></div></div>
         <div class="block-slot">
-          <div class="result-card" data-delay="100" onclick="openResultByDate(this)">
+          <div class="result-card" data-delay="100">
             <div class="card-accent" style="background:#e8a030;"></div>
             <div class="card-body">
               <div><div class="card-date">03 / 18</div><div class="card-rank">14<sup>位</sup></div></div>
@@ -337,7 +345,7 @@ body { background:#000; width:100vw; height:100vh; overflow:hidden; font-family:
       <div class="day-header" style="color:#d44a2a;">SAT</div>
       <div class="day-blocks">
         <div class="block-slot">
-          <div class="result-card" data-delay="200" onclick="openResultByDate(this)">
+          <div class="result-card" data-delay="200">
             <div class="card-accent" style="background:#d44a2a;"></div>
             <div class="card-body">
               <div><div class="card-date">03 / 14</div><div class="card-rank no-rank">—</div></div>
@@ -2933,21 +2941,6 @@ function setWeekBg(weekNum) {
   }
 }
 
-function openResultByDate(card) {
-  const dateEl = card.querySelector('.card-date');
-  if (!dateEl) return;
-  const parts = dateEl.textContent.replace(/\s/g,'').split('/');
-  if (parts.length < 2) return;
-  const month = parseInt(parts[0]);
-  const day   = parseInt(parts[1]);
-  const year  = 2026;
-  const date  = new Date(year, month - 1, day);
-  function getISOWeek(d) {
-    const tmp = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
-    tmp.setUTCDate(tmp.getUTCDate() + 4 - (tmp.getUTCDay() || 7));
-    const yearStart = new Date(Date.UTC(tmp.getUTCFullYear(), 0, 1));
-    return Math.ceil((((tmp - yearStart) / 86400000) + 1) / 7);
-  }
   const yyyy = date.getFullYear();
   const ww   = String(getISOWeek(date)).padStart(2, '0');
   const filename = 'kinoko_' + yyyy + '_w' + ww + '.html';
@@ -2956,6 +2949,8 @@ function openResultByDate(card) {
 }
 
 </script>
+
+<div id="copyright">©2026 polonp</div>
 
 <!-- RESULT OVERLAY -->
 <div id="result-overlay" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.92);align-items:center;justify-content:center;flex-direction:column;">
