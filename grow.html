@@ -171,7 +171,7 @@ body { background:#000; width:100vw; height:100vh; overflow:hidden; font-family:
 
 /* block label (small) */
 .block-label {
-  font-size:8px; letter-spacing:0.2em; color:rgba(255,255,255,0.18);
+  font-size:8px; letter-spacing:0.2em; color:rgba(255,255,255,0.08);
   text-transform:uppercase; margin-bottom:4px;
 }
 
@@ -184,7 +184,7 @@ body { background:#000; width:100vw; height:100vh; overflow:hidden; font-family:
 #copyright {
   position:fixed; bottom:18px; left:24px;
   font-family:'Barlow',sans-serif; font-size:10px;
-  letter-spacing:0.15em; color:rgba(255,255,255,0.18);
+  letter-spacing:0.15em; color:rgba(255,255,255,0.08);
   z-index:50; pointer-events:none; text-transform:uppercase;
 }
 
@@ -546,8 +546,8 @@ navBtn.addEventListener("click", () => {
       screens.title.style.display = "none";
       showScreen("result");
       navBtn.textContent = "← BACK";
-      setTimeout(() => p1.classList.add("visible"), 100);
-      setTimeout(() => p2.classList.add("visible"), 260);
+      if (p1) setTimeout(() => p1.classList.add("visible"), 100);
+      if (p2) setTimeout(() => p2.classList.add("visible"), 260);
     }, 500);
     history.push("title");
   } else {
@@ -593,7 +593,7 @@ navBtn.addEventListener("click", () => {
     showScreen("sub");
     navBtn.textContent = "← BACK";
     animatePanels(document.getElementById("sub-screen").querySelector(".sub-panels-container"));
-    document.getElementById("highlight-ctrl").style.opacity = "1";
+    const hc = document.getElementById("highlight-ctrl"); if(hc) hc.style.opacity = "1";
   });
 });
 
@@ -627,12 +627,6 @@ function setWeekBg(weekNum) {
   }
 }
 
-  const yyyy = date.getFullYear();
-  const ww   = String(getISOWeek(date)).padStart(2, '0');
-  const filename = 'kinoko_' + yyyy + '_w' + ww + '.html';
-  document.getElementById('result-overlay-frame').src = filename;
-  document.getElementById('result-overlay').style.display = 'flex';
-}
 
 </script>
 
