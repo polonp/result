@@ -2952,7 +2952,9 @@ function renderSessions() {
   }
 
   // Render sessions for active week
-  const toShow = weekMap[activeWeekKey] || [];
+  let toShow = weekMap[activeWeekKey] || [];
+  // view modeでは最新の1セッションだけ表示
+  if (isView) toShow = toShow.slice(-1);
   toShow.forEach(({ s, idx }) => {
     const { meta, tableHTML } = s;
     const d = meta.date ? new Date(meta.date.replace(/\//g,'-')) : null;
