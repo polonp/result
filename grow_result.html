@@ -2990,16 +2990,6 @@ function downloadPage() {
   // Get current page HTML
   let html = document.documentElement.outerHTML;
 
-  // Inject sessions data as a script so they load on open (view mode)
-  const injectScript = `<script>
-    // Pre-loaded session data
-    (function(){
-      const data = ${JSON.stringify(sessions)};
-      localStorage.setItem('${SESSION_KEY}', JSON.stringify(data));
-    })();
-  <\/script>`;
-  html = html.replace('</head>', injectScript + '</head>');
-
   // 入力日付 or 今日 → 日付形式でファイル名生成
   const rawDate = document.getElementById('meta-date')?.value?.replace(/\//g,'-');
   const refDate = rawDate ? new Date(rawDate) : new Date();
@@ -3007,6 +2997,24 @@ function downloadPage() {
   const mm = String(refDate.getMonth() + 1).padStart(2, '0');
   const dd = String(refDate.getDate()).padStart(2, '0');
   const filename = `kinoko_${yyyy}_${mm}${dd}.html`;
+
+  // その日付のセッションだけ埋め込む
+  const dateStr = `${yyyy}/${mm}/${dd}`;
+  const todaySessions = sessions.filter(s => {
+    const d = s.meta?.date || '';
+    return d.startsWith(dateStr) || d === `${yyyy}/${parseInt(mm)}/${parseInt(dd)}`;
+  });
+  const exportSessions = todaySessions.length > 0 ? todaySessions : sessions.slice(-1);
+
+  const injectScript = `<script>
+    // Pre-loaded session data
+    (function(){
+      const data = ${JSON.stringify(exportSessions)};
+      localStorage.setItem('${SESSION_KEY}', JSON.stringify(data));
+    })();
+  <\/script>`;
+
+  html = html.replace('</head>', injectScript + '</head>');
 
   const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
   const a = document.createElement('a');
