@@ -572,13 +572,30 @@ function buildWeeks(year, month) {
 
   const mainColW  = splitColors[currentSplit];
   const mutedColW = "rgba(255,255,255,0.28)";
+
+  // 月の最初のMondayを求める
+  function getFirstMonday(y, m) {
+    for (let d = 1; d <= 7; d++) {
+      if (new Date(y, m - 1, d).getDay() === 1) return d;
+    }
+    return 1;
+  }
+  const firstMon = getFirstMonday(year, month);
+
   let idx = 0;
   for (let w = startW; w <= endW; w++) {
     // SCRIMは常に今週をハイライト
     const isCurrent = (currentSplit > 0) && (currentWeekNum === w);
     const col = isCurrent ? mainColW : mutedColW;
+
+    // 週の開始日・終了日を計算
+    const weekStart = new Date(year, month - 1, firstMon + (w - 1) * 7);
+    const weekEnd   = new Date(year, month - 1, firstMon + (w - 1) * 7 + 5); // 土曜
+    const fmt = d => (d.getMonth() + 1) + '/' + d.getDate();
+    const dateRange = fmt(weekStart) + ' - ' + fmt(weekEnd);
+
     idx++;
-    const p = makePanel("WEEK " + w, {week: w}, col);
+    const p = makePanel("WEEK " + w + "  " + dateRange, {week: w}, col);
     c.appendChild(p);
     p.addEventListener("click", () => {
       history.push("week");
