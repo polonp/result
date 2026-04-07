@@ -718,8 +718,7 @@ document.addEventListener('click', function(e) {
   if (parts.length < 2) return;
   const mm = parts[0].padStart(2,'0');
   const dd = parts[1].padStart(2,'0');
-  const filename = 'kinoko_2026_' + mm + dd + '.html?view';
-  document.getElementById('result-overlay-frame').src = filename;
+  const filename = 'kinoko_2026_' + mm + dd + '.html?view';  document.getElementById('result-overlay-frame').src = filename;
   document.getElementById('result-overlay').style.display = 'flex';
 });
 

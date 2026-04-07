@@ -2630,7 +2630,7 @@ function clearAll() {
 
 // ── View Mode ────────────────────────────────────────────────
 (function() {
-  const isView = location.search.includes('view') || location.hash === '#view';
+  const isView = location.search.includes('view') && !location.search.includes('edit');
   if (isView) document.body.classList.add('view-mode');
 })();
 
