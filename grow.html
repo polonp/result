@@ -595,7 +595,7 @@ function buildWeeks(year, month) {
     const dateRange = fmt(weekStart) + ' - ' + fmt(weekEnd);
 
     idx++;
-    const weekLabel = `WEEK ${w}<br><span style="font-size:10px;letter-spacing:0.15em;font-weight:300;opacity:0.7;margin-top:6px;display:block;">${dateRange}</span>`;
+    const weekLabel = `WEEK ${w}<br><span style="font-size:13px;letter-spacing:0.15em;font-weight:300;opacity:0.75;margin-top:6px;display:block;">${dateRange}</span>`;
     const p = makePanel(weekLabel, {week: w}, col);
     c.appendChild(p);
     p.addEventListener("click", () => {
