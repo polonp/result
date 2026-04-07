@@ -338,7 +338,7 @@
   body.view-mode .rank-cell,
   body.view-mode .finalplace-cell { cursor:default !important; pointer-events:none; }
   .view-badge { display:none; position:fixed; bottom:16px; right:16px; z-index:9999; }
-  body.view-mode .total-bar { display:none !important; }
+  body.view-mode .total-bar { display:flex !important; }
   body.view-mode .view-badge { display:flex; align-items:center; gap:6px; background:#1a1a1c; color:rgba(255,255,255,0.55); font-family:"Barlow",sans-serif; font-size:8px; letter-spacing:4px; text-transform:uppercase; padding:7px 16px; border-radius:2px; box-shadow:0 2px 12px rgba(0,0,0,0.35); font-weight:400; }
 
   /* ── Week Tabs ── */
@@ -2012,23 +2012,22 @@ function mergeCharRow(playerIdx) {
 }
 
 function updateTotals() {
-  // Update header totals
   let totalK=0, totalP=0, totalPT=0;
   const resultCells = document.querySelectorAll('.row-result td');
   for (let g = 0; g < 6; g++) {
     const base = g * 4;
-    if (!resultCells[base] || resultCells[base].textContent === '—') continue;
-    totalK += parseInt(resultCells[base].textContent) || 0;
-    totalP += parseInt(resultCells[base+1]?.textContent) || 0;
+    if (!resultCells[base]) continue;
+    const kText = resultCells[base].textContent.trim();
+    if (kText === '—' || kText === '') continue;
+    totalK  += parseInt(kText) || 0;
+    totalP  += parseInt(resultCells[base+1]?.textContent) || 0;
     totalPT += parseInt(resultCells[base+2]?.textContent) || 0;
   }
-  // Update header bar - find the v spans
   const vSpans = document.querySelectorAll('.total-item .v');
   if (vSpans[0]) vSpans[0].textContent = totalK;
   if (vSpans[1]) vSpans[1].textContent = totalP;
   if (vSpans[2]) vSpans[2].textContent = totalPT;
 
-  // Update kill/dmg totals column
   updateRowTotals('.row-kills', 6);
   updateRowTotals('.row-assists', 6);
   updateDmgTotals(6);
@@ -2040,14 +2039,15 @@ function updateRowTotals(rowClass, numGames) {
   const labelOffset = (rowClass === '.row-kills') ? 0 : 1;
   for (let g = 0; g < numGames; g++) {
     const base = labelOffset + g * 4;
-    if (!cells[base] || cells[base].textContent === '—') continue;
-    tT += parseInt(cells[base].textContent) || 0;
+    if (!cells[base]) continue;
+    const txt = cells[base].textContent.trim();
+    if (txt === '—' || txt === '') continue;
+    tT += parseInt(txt) || 0;
     tP += parseInt(cells[base+1]?.textContent) || 0;
     tA += parseInt(cells[base+2]?.textContent) || 0;
   }
-  // kills row has no label; assists row has label - caller passes offset
-  const totalBase = (rowClass === '.row-kills') ? 8 * 4 : 1 + 8 * 4;
-  if (cells[totalBase]) cells[totalBase].textContent = tT;
+  const totalBase = labelOffset + numGames * 4;
+  if (cells[totalBase])   cells[totalBase].textContent = tT;
   if (cells[totalBase+1]) cells[totalBase+1].textContent = tP;
   if (cells[totalBase+2]) cells[totalBase+2].textContent = tA;
 }
@@ -2057,13 +2057,15 @@ function updateDmgTotals(numGames) {
   let tT=0, tP=0, tA=0;
   for (let g = 0; g < numGames; g++) {
     const base = 1 + g * 4;
-    if (!cells[base] || cells[base].textContent === '—') continue;
-    tT += parseInt((cells[base].textContent||'0').replace(/,/g,'')) || 0;
+    if (!cells[base]) continue;
+    const txt = cells[base].textContent.trim();
+    if (txt === '—' || txt === '') continue;
+    tT += parseInt((txt||'0').replace(/,/g,'')) || 0;
     tP += parseInt((cells[base+1]?.textContent||'0').replace(/,/g,'')) || 0;
     tA += parseInt((cells[base+2]?.textContent||'0').replace(/,/g,'')) || 0;
   }
-  const totalBase = 1 + 8 * 4;
-  if (cells[totalBase]) cells[totalBase].textContent = tT.toLocaleString();
+  const totalBase = 1 + numGames * 4;
+  if (cells[totalBase])   cells[totalBase].textContent = tT.toLocaleString();
   if (cells[totalBase+1]) cells[totalBase+1].textContent = tP.toLocaleString();
   if (cells[totalBase+2]) cells[totalBase+2].textContent = tA.toLocaleString();
 }
@@ -3005,21 +3007,13 @@ function downloadPage() {
   <\/script>`;
   html = html.replace('</head>', injectScript + '</head>');
 
-  // ── 週番号でファイル名を自動生成 ──
-  function getWeekNumber(d) {
-    const date = new Date(d);
-    date.setHours(0,0,0,0);
-    date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
-    const week1 = new Date(date.getFullYear(), 0, 4);
-    return Math.round(((date - week1) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7) + 1;
-  }
-
-  // 入力日付 or 今日
+  // 入力日付 or 今日 → 日付形式でファイル名生成
   const rawDate = document.getElementById('meta-date')?.value?.replace(/\//g,'-');
   const refDate = rawDate ? new Date(rawDate) : new Date();
   const yyyy = refDate.getFullYear();
-  const ww = String(getWeekNumber(refDate)).padStart(2, '0');
-  const filename = `kinoko_${yyyy}_w${ww}.html`;
+  const mm = String(refDate.getMonth() + 1).padStart(2, '0');
+  const dd = String(refDate.getDate()).padStart(2, '0');
+  const filename = `kinoko_${yyyy}_${mm}${dd}.html`;
 
   const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
   const a = document.createElement('a');
