@@ -680,6 +680,28 @@ function setWeekBg(weekNum) {
   }
 }
 
+// Result card click
+document.addEventListener('click', function(e) {
+  const card = e.target.closest('.result-card');
+  if (!card) return;
+  const dateEl = card.querySelector('.card-date');
+  if (!dateEl) return;
+  const parts = dateEl.textContent.replace(/\s/g,'').split('/');
+  if (parts.length < 2) return;
+  const month = parseInt(parts[0]);
+  const day   = parseInt(parts[1]);
+  const date  = new Date(2026, month - 1, day);
+  function getISOWeek(d) {
+    const tmp = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+    tmp.setUTCDate(tmp.getUTCDate() + 4 - (tmp.getUTCDay() || 7));
+    const yearStart = new Date(Date.UTC(tmp.getUTCFullYear(), 0, 1));
+    return Math.ceil((((tmp - yearStart) / 86400000) + 1) / 7);
+  }
+  const ww = String(getISOWeek(date)).padStart(2, '0');
+  const filename = 'kinoko_2026_w' + ww + '.html';
+  document.getElementById('result-overlay-frame').src = filename;
+  document.getElementById('result-overlay').style.display = 'flex';
+});
 
 </script>
 
