@@ -2632,12 +2632,21 @@ function clearAll() {
 (function() {
   const isView = location.search.includes('view') && !location.search.includes('edit');
   if (isView) document.body.classList.add('view-mode');
+
+  // view modeではlocalStorageを使わず埋め込みデータだけ使う
+  if (isView) {
+    window._viewModeOnly = true;
+  }
 })();
 
 // ── Session Storage ──────────────────────────────────────────
 const SESSION_KEY = 'kinoko_sessions_v1';
 
 function loadSessions() {
+  if (window._viewModeOnly) {
+    // view modeではlocalStorageを無視、埋め込みデータのみ
+    return window._injectedSessions || [];
+  }
   try { return JSON.parse(localStorage.getItem(SESSION_KEY)) || []; }
   catch { return []; }
 }
@@ -3007,9 +3016,9 @@ function downloadPage() {
   const exportSessions = todaySessions.length > 0 ? todaySessions : sessions.slice(-1);
 
   const injectScript = `<script>
-    // Pre-loaded session data
     (function(){
-      const data = ${JSON.stringify(exportSessions)};
+      const data = ${JSON.stringify(exportSessions, null, 0).replace(/<\/script>/g,'<\\/script>')};
+      window._injectedSessions = data;
       localStorage.setItem('${SESSION_KEY}', JSON.stringify(data));
     })();
   <\/script>`;
