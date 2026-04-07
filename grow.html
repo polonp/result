@@ -50,7 +50,8 @@ body { background:#000; width:100vw; height:100vh; overflow:hidden; font-family:
 
 /* ── NAV BTN ── */
 #nav-btn {
-  position:fixed; bottom:11%; left:50%; transform:translateX(-50%); z-index:100;
+  position:fixed; bottom:11%; left:0; right:0; margin:0 auto;
+  width:fit-content; text-align:center; z-index:100;
   font-family:"Barlow","Zen Kaku Gothic New",sans-serif; font-size:clamp(10px,1.1vw,14px); letter-spacing:0.3em;
   color:rgba(255,255,255,0.45); text-transform:uppercase;
   cursor:pointer; border:none; background:none; padding:20px 40px;
@@ -60,6 +61,23 @@ body { background:#000; width:100vw; height:100vh; overflow:hidden; font-family:
 #nav-btn:hover { color:rgba(255,255,255,0.9); letter-spacing:0.45em; }
 #nav-btn::after { content:""; display:block; height:1px; background:rgba(255,255,255,0.3); margin-top:4px; transform:scaleX(0); transition:transform 0.3s; }
 #nav-btn:hover::after { transform:scaleX(1); }
+/* ── HOME BTN ── */
+#home-btn {
+  display:none;
+  position:fixed; bottom:calc(11% - 40px); left:0; right:0; margin:0 auto;
+  width:fit-content; text-align:center; z-index:100;
+  font-family:"Barlow",sans-serif; font-size:clamp(10px,1.1vw,14px); letter-spacing:0.3em;
+  color:rgba(255,255,255,0.25); text-transform:uppercase;
+  cursor:pointer; border:none; background:none; padding:6px 0px;
+  transition:color 0.3s; white-space:nowrap;
+}
+#home-btn:hover { color:rgba(255,255,255,0.6); }
+#back-btn::after, #go-home-btn::after {
+  content:""; display:block; height:1px; background:rgba(255,255,255,0.3);
+  margin-top:4px; transform:scaleX(0); transition:transform 0.3s;
+}
+#back-btn:hover::after, #go-home-btn:hover::after { transform:scaleX(1); }
+#back-btn:hover, #go-home-btn:hover { color:rgba(255,255,255,0.9); }
 
 /* click overlay for title screen ENTER */
 #title-click-overlay {
@@ -367,6 +385,14 @@ body { background:#000; width:100vw; height:100vh; overflow:hidden; font-family:
 
 <!-- NAV -->
 <button id="nav-btn">ENTER</button>
+<div id="home-btn" style="display:none;position:fixed;bottom:calc(11% - 44px);left:0;right:0;z-index:100;display:none;flex-direction:column;align-items:center;gap:2px;">
+  <button id="back-btn" style="position:relative;font-family:'Barlow',sans-serif;font-size:clamp(10px,1.1vw,14px);letter-spacing:0.3em;color:rgba(255,255,255,0.45);text-transform:uppercase;cursor:pointer;border:none;background:none;padding:4px 0;white-space:nowrap;transition:color 0.3s;">
+    <span style="position:absolute;right:calc(100% + 6px);">←</span>BACK
+  </button>
+  <button id="go-home-btn" style="position:relative;font-family:'Barlow',sans-serif;font-size:clamp(10px,1.1vw,14px);letter-spacing:0.3em;color:rgba(255,255,255,0.45);text-transform:uppercase;cursor:pointer;border:none;background:none;padding:4px 0;white-space:nowrap;transition:color 0.3s;">
+    HOME<span style="position:absolute;left:calc(100% + 6px);">→</span>
+  </button>
+</div>
 
 
 <script>
@@ -383,7 +409,26 @@ const p2  = document.getElementById("panel-s2");
 const sp1 = document.getElementById("sub-p1");
 const sp2 = document.getElementById("sub-p2");
 const sp3 = document.getElementById("sub-p3");
-const navBtn = document.getElementById("nav-btn");
+const navBtn    = document.getElementById("nav-btn");
+const homeBtnWrap = document.getElementById("home-btn");
+const backBtn   = document.getElementById("back-btn");
+const goHomeBtn = document.getElementById("go-home-btn");
+
+function goHome() {
+  history.length = 0;
+  document.querySelectorAll(".split-panel, .sub-panel, .result-card").forEach(p => p.classList.remove("visible"));
+  showScreen("title");
+  screens.title.style.display = "";
+  setTimeout(() => { screens.title.style.opacity = "1"; }, 20);
+  navBtn.textContent = "ENTER";
+  navBtn.style.display = "block";
+  homeBtnWrap.style.display = "none";
+}
+
+goHomeBtn.addEventListener("click", goHome);
+
+// back-btn = same as navBtn click
+backBtn.addEventListener("click", () => navBtn.click());
 
 const splitColors = { 1:"#ff2d78", 2:"#00c8ff" };
 const todayColors = { 1:"#ff2d78", 2:"#00c8ff" };
@@ -401,6 +446,14 @@ function showScreen(name) {
   screens[name].style.opacity = "1";
   screens[name].style.pointerEvents = "auto";
   currentScreen = name;
+  if (name === "title") {
+    navBtn.style.display = "block";
+    homeBtnWrap.style.display = "none";
+  } else {
+    navBtn.style.display = "none";
+    homeBtnWrap.style.display = "flex";
+    backBtn.style.display = (name === "result") ? "none" : "block";
+  }
 }
 
 // Weeks = number of Mondays in the month.
