@@ -2966,6 +2966,16 @@ function downloadPage() {
 ${fonts}
 ${css}
 <style>body{margin:0;padding:0;} .static-wrap{padding:20px 16px;} .edit-only{display:none!important;} .meta-bar{display:none!important;}</style>
+<script>
+// ダッシュボードにFINAL PLACEを通知
+window.addEventListener('load', function() {
+  const fp = document.querySelector('.sv');
+  if (fp && window.parent !== window) {
+    const date = document.title.replace('RESULT ','');
+    window.parent.postMessage({ type:'finalPlace', date: date, value: fp.textContent }, '*');
+  }
+});
+</script>
 </head>
 <body>
 <div class="static-wrap">
@@ -2977,7 +2987,7 @@ ${css}
         <div class="session-date-block">
           <span class="session-day-badge">${dayJP}</span>
           <span class="session-date-text">${dateStr}</span>
-          ${scrimLabel ? `<span style="font-size:13px;color:#888;letter-spacing:1px;margin-left:6px;">${scrimLabel} ${numStr}</span>` : ''}
+          ${meta.resultUrl ? `<span style="font-size:15px;color:#5878a0;letter-spacing:1px;margin-left:8px;cursor:pointer;text-decoration:underline;" onclick="window.open('${meta.resultUrl}','_blank')">${scrimLabel} ${numStr} 公式リザルト</span>` : `<span style="font-size:15px;color:#888;letter-spacing:1px;margin-left:8px;">${scrimLabel} ${numStr}</span>`}
           ${blockCard ? `<span style="font-size:12px;color:#aaa;letter-spacing:2px;margin-left:8px;">${blockCard}</span>` : ''}
           ${meta.resultUrl ? `<a href="${meta.resultUrl}" target="_blank" style="font-size:11px;color:#5878a0;letter-spacing:1px;text-decoration:none;margin-left:8px;">公式リザルト →</a>` : ''}
         </div>
