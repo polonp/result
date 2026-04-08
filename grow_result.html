@@ -2033,6 +2033,13 @@ function updateTotals() {
   if (vSpans[2]) vSpans[2].textContent = totalP;
   if (vSpans[3]) vSpans[3].textContent = totalPT;
 
+  // row-resultの右端TOTAL列も更新
+  const resultTotal = document.querySelectorAll('.row-result td');
+  const rtBase = 6 * 4; // 6games × 4cols
+  if (resultTotal[rtBase])   resultTotal[rtBase].textContent   = totalK;
+  if (resultTotal[rtBase+1]) resultTotal[rtBase+1].textContent = totalP;
+  if (resultTotal[rtBase+2]) resultTotal[rtBase+2].textContent = totalPT;
+
   updateRowTotals('.row-kills', 6);
   updateRowTotals('.row-assists', 6);
   updateDmgTotals(6);
