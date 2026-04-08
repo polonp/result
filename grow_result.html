@@ -2992,40 +2992,77 @@ function renderSessions() {
 
 // ── Download with sessions baked in ─────────────────────────
 function downloadPage() {
-  // Serialize current sessions into the page
   const sessions = loadSessions();
-  const snapshot = captureCurrentSheet();
 
-  // Get current page HTML
-  let html = document.documentElement.outerHTML;
-
-  // 入力日付 or 今日 → 日付形式でファイル名生成
+  // 入力日付 or 今日
   const rawDate = document.getElementById('meta-date')?.value?.replace(/\//g,'-');
   const refDate = rawDate ? new Date(rawDate) : new Date();
   const yyyy = refDate.getFullYear();
   const mm = String(refDate.getMonth() + 1).padStart(2, '0');
   const dd = String(refDate.getDate()).padStart(2, '0');
   const filename = `kinoko_${yyyy}_${mm}${dd}.html`;
-
-  // その日付のセッションだけ埋め込む
   const dateStr = `${yyyy}/${mm}/${dd}`;
+
+  // その日のセッションだけ
   const todaySessions = sessions.filter(s => {
     const d = s.meta?.date || '';
-    return d.startsWith(dateStr) || d === `${yyyy}/${parseInt(mm)}/${parseInt(dd)}`;
+    return d.startsWith(dateStr);
   });
   const exportSessions = todaySessions.length > 0 ? todaySessions : sessions.slice(-1);
 
-  const injectScript = `<script>
-    (function(){
-      const data = ${JSON.stringify(exportSessions, null, 0).replace(/<\/script>/g,'<\\/script>')};
-      window._injectedSessions = data;
-      localStorage.setItem('${SESSION_KEY}', JSON.stringify(data));
-    })();
-  <\/script>`;
+  // セッションのHTMLを生成
+  const sessionsHTML = exportSessions.map(s => {
+    const { meta, tableHTML } = s;
+    const d = meta.date ? new Date(meta.date.replace(/\//g,'-')) : null;
+    const dayNames = ['日','月','火','水','木','金','土'];
+    const dayJP = d ? dayNames[d.getDay()] : '';
+    const scrimName = [meta.scrim, meta.num ? meta.prefix + meta.num : ''].filter(Boolean).join(' ');
+    const headerSub = `${meta.date}（${dayJP}）${scrimName ? ' | ' + scrimName : ''}`;
 
-  html = html.replace('</head>', injectScript + '</head>');
+    return `
+    <div class="session-block">
+      <div class="session-header">
+        <div class="session-date-block">
+          <span class="session-day-badge">${dayJP}</span>
+          <span class="session-date-text">${meta.date}</span>
+          <span class="session-name-text">${scrimName}</span>
+        </div>
+        <div class="session-stat-bar">
+          <div class="session-stat-item" style="background:#b89438"><span class="sv">${meta.finalPlace||'—'}</span><span class="sl">FINAL PLACE</span></div>
+          <div class="session-stat-item" style="background:#c04040"><span class="sv">${meta.kills||'—'}</span><span class="sl">KILLS</span></div>
+          <div class="session-stat-item" style="background:#3a6898"><span class="sv">${meta.placePT||'—'}</span><span class="sl">PLACE PT</span></div>
+          <div class="session-stat-item" style="background:#3a7848"><span class="sv">${meta.totalPT||'—'}</span><span class="sl">TOTAL PT</span></div>
+        </div>
+      </div>
+      <div class="session-sheet-wrap">${tableHTML || ''}</div>
+    </div>`;
+  }).join('');
 
-  const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+  // Get CSS from current page
+  const styleEl = document.querySelector('style');
+  const css = styleEl ? styleEl.outerHTML : '';
+  const fonts = '<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">';
+
+  const staticHTML = `<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RESULT ${dateStr}</title>
+${fonts}
+${css}
+</head>
+<body>
+<div class="container">
+  <div class="meta-bar" style="padding:16px 0 8px;font-family:'Barlow',sans-serif;font-size:11px;letter-spacing:0.2em;color:#888;text-transform:uppercase;">
+    R E S U L T
+  </div>
+  ${sessionsHTML}
+</div>
+</body>
+</html>`;
+
+  const blob = new Blob([staticHTML], { type: 'text/html;charset=utf-8' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = filename;
