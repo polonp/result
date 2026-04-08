@@ -2520,136 +2520,32 @@ document.addEventListener('click', () => {
 });
 
 function clearAll() {
-  if (!confirm('Clear all data? This cannot be undone.')) return;
+  if (!confirm('入力欄の数字をクリアします。\nMAP・POI・BAN・キャラ名は残ります。\n保存済みのセッションは消えません。\nよろしいですか？')) return;
 
-  // Clear MAP (split all to individual '—' cells)
-  const mapRow = document.querySelector('.row-map');
-  if (mapRow) {
-    mapRow.querySelectorAll('.map-cell').forEach(td => td.remove());
-    const mapTotalCell = mapRow.querySelector('.td-total-col');
-    if (mapTotalCell) mapTotalCell.remove();
-    for (let i = 0; i < 6; i++) {
-      const td = document.createElement('td');
-      td.className = 'map-cell';
-      td.setAttribute('colspan', '4');
-      td.setAttribute('data-game', i + 1);
-      td.textContent = '—';
-      mapRow.appendChild(td);
-    }
-    const mapTc = document.createElement('td');
-    mapTc.className = 'td-total-col';
-    mapTc.setAttribute('colspan', '3');
-    mapRow.appendChild(mapTc);
-    attachMapCellListeners();
-  }
-
-  // Clear POI (split all to individual '—' cells)
-  const poiRow = document.getElementById('poi-row');
-  if (poiRow) {
-    poiRow.querySelectorAll('.poi-cell').forEach(td => td.remove());
-    const poiTotalCell = poiRow.querySelector('.td-total-col');
-    if (poiTotalCell) poiTotalCell.remove();
-    for (let i = 0; i < 6; i++) {
-      const td = document.createElement('td');
-      td.className = 'poi-cell';
-      td.setAttribute('colspan', '4');
-      td.setAttribute('data-game', i + 1);
-      td.textContent = '—';
-      td.style.cursor = 'pointer';
-      td.addEventListener('click', function(e) {
-        e.stopPropagation();
-        activePoiCell = this;
-        const picker = document.getElementById('poiPicker');
-        picker.style.left = Math.min(e.clientX + window.scrollX, window.innerWidth - 240) + 'px';
-        picker.style.top = (e.clientY + window.scrollY + 8) + 'px';
-        picker.classList.add('visible');
-      });
-      poiRow.appendChild(td);
-    }
-    const poiTc = document.createElement('td');
-    poiTc.className = 'td-total-col';
-    poiTc.setAttribute('colspan', '3');
-    poiRow.appendChild(poiTc);
-  }
-
-  // Clear BAN (split all to individual '—' cells)
-  const banRow = document.querySelector('.row-ban');
-  if (banRow) {
-    banRow.querySelectorAll('.ban-cell').forEach(td => td.remove());
-    const banTotalCell = banRow.querySelector('.td-total-col');
-    if (banTotalCell) banTotalCell.remove();
-    for (let i = 0; i < 6; i++) {
-      const td = document.createElement('td');
-      td.className = 'ban-cell';
-      td.setAttribute('colspan', '4');
-      td.setAttribute('data-game', i + 1);
-      td.textContent = '—';
-      banRow.appendChild(td);
-    }
-    const banTc = document.createElement('td');
-    banTc.className = 'td-total-col';
-    banTc.setAttribute('colspan', '3');
-    banRow.appendChild(banTc);
-    attachBanCellListeners();
-  }
-
-  // Clear char rows (split all to individual '—' c-0 cells)
-  document.querySelectorAll('.row-char').forEach((row, playerIdx) => {
-    row.querySelectorAll('td:not(.td-label)').forEach(td => td.remove());
-    for (let i = 0; i < 6; i++) {
-      const td = document.createElement('td');
-      td.setAttribute('colspan', '4');
-      td.className = 'char-cell c-0';
-      td.textContent = '—';
-      td.style.cursor = 'pointer';
-      td.addEventListener('click', function(e) {
-        activeCharCell = this;
-        activeBanCell = null;
-        const picker = document.getElementById('charPicker');
-        picker.style.left = (e.clientX + window.scrollX) + 'px';
-        picker.style.top = (e.clientY + window.scrollY + 8) + 'px';
-        picker.classList.add('visible');
-        document.getElementById('imgUploadArea').style.display = 'none';
-      });
-      row.appendChild(td);
-    }
-    // Re-add total column
-    const tcTd = document.createElement('td');
-    tcTd.className = 'td-total-col';
-    tcTd.setAttribute('colspan', '3');
-    row.appendChild(tcTd);
-  });
-
-  // Clear result / rank / kppt rows
+  // Clear result rows (numbers only)
   document.querySelectorAll('.row-result td').forEach(td => { td.textContent = '—'; td.className = 'k0-val'; });
   document.querySelectorAll('.rank-cell').forEach(td => { td.textContent = '—'; td.className = 'rank-cell'; });
 
   // Clear kills/assists/dmg rows
-  document.querySelectorAll('.row-kills td').forEach(td => { td.textContent = '—'; td.className = 'kval'; });
+  document.querySelectorAll('.row-kills td').forEach(td => { td.textContent = '0'; td.className = 'kval'; });
+  document.querySelectorAll('.row-kills-init td').forEach(td => { if (!td.classList.contains('td-label')) { td.textContent = ''; } });
   document.querySelectorAll('.row-assists td').forEach(td => {
-    if (!td.classList.contains('td-label') && !td.classList.contains('init')) { td.textContent = '—'; td.className = 'kval'; }
+    if (!td.classList.contains('td-label') && !td.classList.contains('init')) { td.textContent = '0'; td.className = 'kval'; }
   });
   document.querySelectorAll('.row-dmg td').forEach(td => {
-    if (!td.classList.contains('td-label') && !td.classList.contains('init')) { td.textContent = '—'; td.className = 'dmg'; }
+    if (!td.classList.contains('td-label') && !td.classList.contains('init')) { td.textContent = '0'; td.className = 'dmg'; }
   });
 
   // Reset header totals
   const vSpans = document.querySelectorAll('.total-item .v');
-  if (vSpans[0]) vSpans[0].textContent = '0';
   if (vSpans[1]) vSpans[1].textContent = '0';
   if (vSpans[2]) vSpans[2].textContent = '0';
+  if (vSpans[3]) vSpans[3].textContent = '0';
 
   // Reset final place
   const fp = document.getElementById('total-finalplace');
   if (fp) fp.textContent = '—';
-
-  // Reset helpers
-  helperNames = { t: '', p: '', a: '' };
-  ['t', 'p', 'a'].forEach(role => {
-    const inp = document.getElementById('ps-helper-' + role);
-    if (inp) inp.value = '';
-    renderHelperState(role);
-  });
+}
 }
 
 
@@ -2676,6 +2572,12 @@ function loadSessions() {
   catch { return []; }
 }
 function storeSessions(arr) {
+  // 日付順にソート（月→火→水…）
+  arr.sort((a, b) => {
+    const da = a.meta?.date || '';
+    const db = b.meta?.date || '';
+    return da.localeCompare(db);
+  });
   localStorage.setItem(SESSION_KEY, JSON.stringify(arr));
 }
 
