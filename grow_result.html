@@ -75,8 +75,8 @@
   table { width:100%; border-collapse:collapse; min-width:1300px; table-layout:fixed; }
   th, td { border:1px solid var(--border-light); padding:7px 0; text-align:center; font-family:"Barlow","Zen Kaku Gothic New",sans-serif; font-size:11px; font-weight:400; white-space:nowrap; color:var(--text); }
 
-  .th-game { background:var(--game-bg); font-family:"Barlow",sans-serif; font-size:9px; letter-spacing:4px; text-transform:uppercase; padding:8px 4px; color:var(--muted); border-bottom:2px solid var(--border); font-weight:500; }
-  .th-game-total { background:var(--game-bg); font-family:"Barlow",sans-serif; font-size:9px; letter-spacing:4px; color:var(--text); border-bottom:2px solid var(--border); font-weight:500; }
+  .th-game { background:var(--game-bg); font-family:"Barlow",sans-serif; font-size:11px; letter-spacing:4px; text-transform:uppercase; padding:8px 4px; color:var(--muted); border-bottom:2px solid var(--border); font-weight:500; }
+  .th-game-total { background:var(--game-bg); font-family:"Barlow",sans-serif; font-size:11px; letter-spacing:4px; color:var(--text); border-bottom:2px solid var(--border); font-weight:500; }
 
   .td-label { text-align:center; padding-left:0; font-family:"Barlow",sans-serif; font-size:8px; letter-spacing:3px; color:#ffffff; text-transform:uppercase; background:var(--panel) !important; min-width:100px; border-right:2px solid var(--border) !important; font-weight:500; }
   .td-label.c-t { background:var(--ct-dark) !important; }
@@ -87,17 +87,17 @@
   .td-label.c-a.label-helper-a { background:var(--ca-helper) !important; }
 
   .row-map  td { background:#ebebeb; }
-  .map-cell { font-size:11px; cursor:pointer; }
+  .map-cell { font-size:13px; cursor:pointer; }
   .row-poi  td { background:#ebebeb; }
   .row-ban  td { background:#ebebeb; border-bottom:2px solid var(--border); }
   .row-char td { background:var(--cell-base); border-top:none !important; }
   .row-char .td-total-col { border-left:2px solid var(--total-border) !important; }
   .row-char td:nth-last-child(2) { border-right:none !important; }
-  .row-kppt td { background:var(--kppt-bg); font-family:"Barlow",sans-serif; font-size:9px; letter-spacing:2px; padding:5px 0; border:1px solid var(--border-light); font-weight:400; }
+  .row-kppt td { background:var(--kppt-bg); font-family:"Barlow",sans-serif; font-size:11px; letter-spacing:2px; padding:5px 0; border:1px solid var(--border-light); font-weight:400; }
   .row-result td { background:var(--cell-base); }
   .row-rank td { background:#fdf5e0 !important; font-family:"Barlow",sans-serif; font-size:12px; font-weight:500; padding:4px 0; border-top:3px double var(--border); text-align:center; letter-spacing:1px; }
   .row-rank .td-label { font-size:8px !important; font-weight:400 !important; letter-spacing:3px !important; }
-  .rank-cell { font-size:11px; }
+  .rank-cell { font-size:13px; }
   .row-kills-init td { background:var(--panel); padding-top:2px; padding-bottom:2px; }
   .row-kills td { background:var(--cell-base); padding-top:3px; padding-bottom:3px; }
   .row-assists td { background:var(--cell-base); padding-top:3px; padding-bottom:3px; }
@@ -106,16 +106,17 @@
   .kppt-k, .kppt-p, .kppt-pt, .kppt-sub { color:var(--text); }
   .kppt-sub { background:var(--subtotal-col) !important; }
 
-  .poi-cell { font-size:11px; }
-  .ban-cell { font-size:11px; }
-  .char-cell { font-size:11px; }
+  .poi-cell { font-size:13px; }
+  .ban-cell { font-size:13px; }
+  .char-cell { font-size:13px; }
   .cls-assault    { background:#c8dff5 !important; }
   .cls-skirmisher { background:#ddefc8 !important; }
   .cls-recon      { background:#f5e8e0 !important; }
   .cls-controller { background:#ede0f5 !important; }
   .cls-support    { background:#d8f0e8 !important; }
 
-  .k-val, .k0-val, .p-val, .pt-val { color:var(--text); font-size:11px; }
+  .k-val, .k0-val, .p-val { color:var(--text); font-size:11px; }
+  .pt-val { color:var(--text); font-size:11px; font-weight:600; }
   .sub-val { color:#b05858; font-size:12px; font-weight:500; background:rgba(176,88,88,0.08) !important; }
   .ktotal { color:#b05858; font-size:12px; font-weight:500; background:rgba(176,88,88,0.08) !important; }
   .dmg-total { color:#b05858; font-size:12px; font-weight:500; background:rgba(176,88,88,0.08) !important; }
@@ -365,7 +366,7 @@
   .session-day-badge.fri { background:#b8707a; }
   .session-day-badge.sat { background:#4a8a9a; }
   .session-day-badge.sun { background:#b89438; }
-  .session-date-text { font-size:24px; font-weight:300; letter-spacing:4px; color:var(--text); font-family:"Barlow",sans-serif; }
+  .session-date-text { font-size:28px; font-weight:300; letter-spacing:4px; color:var(--text); font-family:"Barlow",sans-serif; }
   .session-name-text { font-size:10px; color:var(--muted); letter-spacing:3px; margin-top:3px; text-transform:uppercase; font-family:"Barlow",sans-serif; }
   .session-stat-bar { display:flex; gap:0; border-radius:2px; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,0.10); flex-shrink:0; }
   .session-stat-item { text-align:center; padding:8px 18px; border-right:1px solid rgba(255,255,255,0.15); }
@@ -443,9 +444,22 @@
       <select id="meta-prefix" style="background:var(--panel);border:none;border-right:1px solid var(--border);color:var(--muted);font-family:'Barlow','Zen Kaku Gothic New',sans-serif;font-size:14px;padding:6px 8px;outline:none;cursor:pointer;">
         <option value="#">#</option>
         <option value="DAY">DAY</option>
+        <option value="RF">RF</option>
       </select>
       <input class="meta-input" type="text" placeholder="546" id="meta-num" style="border:none;border-radius:0;width:60px;padding:6px 8px;">
     </div>
+    <span class="meta-sep">|</span>
+    <select id="meta-block" style="background:var(--panel);border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:'Barlow',sans-serif;font-size:13px;padding:6px 10px;outline:none;cursor:pointer;">
+      <option value="">Block-</option>
+      <option value="Block1">Block1</option>
+      <option value="Block2">Block2</option>
+    </select>
+    <select id="meta-card" style="background:var(--panel);border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:'Barlow',sans-serif;font-size:13px;padding:6px 10px;outline:none;cursor:pointer;">
+      <option value="">-- vs --</option>
+      <option value="AvsB">AvsB</option>
+      <option value="AvsC">AvsC</option>
+      <option value="BvsC">BvsC</option>
+    </select>
     <span class="meta-sep">|</span>
     <input class="meta-input" type="url" placeholder="公式リザルト URL" id="meta-result-url" style="width:220px;">
   </div>
@@ -2015,9 +2029,9 @@ function updateTotals() {
     totalPT += parseInt(resultCells[base+2]?.textContent) || 0;
   }
   const vSpans = document.querySelectorAll('.total-item .v');
-  if (vSpans[0]) vSpans[0].textContent = totalK;
-  if (vSpans[1]) vSpans[1].textContent = totalP;
-  if (vSpans[2]) vSpans[2].textContent = totalPT;
+  if (vSpans[1]) vSpans[1].textContent = totalK;
+  if (vSpans[2]) vSpans[2].textContent = totalP;
+  if (vSpans[3]) vSpans[3].textContent = totalPT;
 
   updateRowTotals('.row-kills', 6);
   updateRowTotals('.row-assists', 6);
@@ -2307,6 +2321,10 @@ function updateHeader() {
   const numRaw = document.getElementById("meta-num").value.trim();
   const prefix = document.getElementById("meta-prefix").value;
   const num = numRaw ? prefix + numRaw : "";
+  const block = document.getElementById("meta-block")?.value || '';
+  const card  = document.getElementById("meta-card")?.value || '';
+  const blockCard = [block, card].filter(Boolean).join(' · ');
+  const scrimLabel = prefix === 'RF' ? 'Regional Finals' : scrim;
 
   // Add day of week to date
   const days = ["日","月","火","水","木","金","土"];
@@ -2316,13 +2334,13 @@ function updateHeader() {
     if (!isNaN(d)) dateWithDay = dateStr + " (" + days[d.getDay()] + ")";
   }
 
-  const parts = [dateWithDay, scrim, num].filter(v => v && v.trim());
+  const parts = [dateWithDay, scrimLabel, num, blockCard].filter(v => v && v.trim());
   document.getElementById("header-sub").textContent =
     parts.length ? parts.join("  |  ") : "FIGHT NT by ESCL — SCRIM SHEET";
 }
-["meta-date","meta-scrim","meta-num","meta-prefix"].forEach(id => {
-  document.getElementById(id).addEventListener("input", updateHeader);
-  document.getElementById(id).addEventListener("change", updateHeader);
+["meta-date","meta-scrim","meta-num","meta-prefix","meta-block","meta-card"].forEach(id => {
+  document.getElementById(id)?.addEventListener("input", updateHeader);
+  document.getElementById(id)?.addEventListener("change", updateHeader);
 });
 updateHeader();
 
@@ -2664,6 +2682,8 @@ function captureCurrentSheet() {
     scrim:  document.getElementById('meta-scrim')?.value || '',
     prefix: document.getElementById('meta-prefix')?.value || '#',
     num:    document.getElementById('meta-num')?.value || '',
+    block:  document.getElementById('meta-block')?.value || '',
+    card:   document.getElementById('meta-card')?.value || '',
     headerSub: document.getElementById('header-sub')?.textContent || '',
     finalPlace: document.getElementById('total-finalplace')?.textContent || '—',
     resultUrl: document.getElementById('meta-result-url')?.value || '',
@@ -2671,9 +2691,9 @@ function captureCurrentSheet() {
 
   // grab total bar values
   const vSpans = document.querySelectorAll('.total-item .v');
-  meta.kills   = vSpans[0]?.textContent || '—';
-  meta.placePT = vSpans[1]?.textContent || '—';
-  meta.totalPT = vSpans[2]?.textContent || '—';
+  meta.kills   = vSpans[1]?.textContent || '—';
+  meta.placePT = vSpans[2]?.textContent || '—';
+  meta.totalPT = vSpans[3]?.textContent || '—';
 
   // Deep-clone table for snapshot (strip event listeners via outerHTML)
   const tableHTML = table.outerHTML;
@@ -2957,11 +2977,14 @@ function renderSessions() {
   if (isView) toShow = toShow.slice(-1);
   toShow.forEach(({ s, idx }) => {
     const { meta, tableHTML } = s;
+    // killsに「位」が含まれてたら古いバグデータ → 0に
+    if (meta.kills && String(meta.kills).includes('位')) meta.kills = '—';
     const d = meta.date ? new Date(meta.date.replace(/\//g,'-')) : null;
     const dayIdx = d ? d.getDay() : -1;
     const dayClass = dayIdx >= 0 ? DAY_CLASS[dayIdx] : '';
     const dayJP = dayIdx >= 0 ? DAY_JP[dayIdx] : '';
     const scrimName = [meta.scrim, meta.num ? meta.prefix + meta.num : ''].filter(Boolean).join(' ');
+    const blockCard = [meta.block, meta.card].filter(Boolean).join(' · ');
 
     const block = document.createElement('div');
     block.className = 'session-block';
@@ -2972,7 +2995,9 @@ function renderSessions() {
             <span class="session-day-badge ${dayClass}">${dayJP}</span>
             <span class="session-date-text">${meta.date || '—'}</span>
             <span style="font-size:13px;color:var(--muted);letter-spacing:1px;">${scrimName}</span>
+            ${meta.resultUrl ? `<a href="${meta.resultUrl}" target="_blank" style="font-size:11px;color:#5878a0;letter-spacing:1px;text-decoration:none;margin-left:8px;opacity:0.8;">公式リザルト →</a>` : ''}
           </div>
+          ${blockCard ? `<div style="font-size:12px;color:rgba(255,255,255,0.5);letter-spacing:3px;margin-top:4px;font-family:'Barlow',sans-serif;text-transform:uppercase;">${blockCard}</div>` : ''}
         </div>
         <div style="display:flex;align-items:center;gap:10px;">
           <div class="session-stat-bar">
@@ -2994,7 +3019,7 @@ function renderSessions() {
 function downloadPage() {
   const sessions = loadSessions();
 
-  // 入力日付 or 今日
+  // 日付
   const rawDate = document.getElementById('meta-date')?.value?.replace(/\//g,'-');
   const refDate = rawDate ? new Date(rawDate) : new Date();
   const yyyy = refDate.getFullYear();
@@ -3003,61 +3028,61 @@ function downloadPage() {
   const filename = `kinoko_${yyyy}_${mm}${dd}.html`;
   const dateStr = `${yyyy}/${mm}/${dd}`;
 
-  // その日のセッションだけ
-  const todaySessions = sessions.filter(s => {
-    const d = s.meta?.date || '';
-    return d.startsWith(dateStr);
-  });
-  const exportSessions = todaySessions.length > 0 ? todaySessions : sessions.slice(-1);
+  // その日のセッションだけ（最新1件）
+  const todaySessions = sessions.filter(s => (s.meta?.date||'').startsWith(dateStr));
+  const exportSession = (todaySessions.length > 0 ? todaySessions : sessions).slice(-1)[0];
+  if (!exportSession) { alert('データがありません'); return; }
 
-  // セッションのHTMLを生成
-  const sessionsHTML = exportSessions.map(s => {
-    const { meta, tableHTML } = s;
-    const d = meta.date ? new Date(meta.date.replace(/\//g,'-')) : null;
-    const dayNames = ['日','月','火','水','木','金','土'];
-    const dayJP = d ? dayNames[d.getDay()] : '';
-    const scrimName = [meta.scrim, meta.num ? meta.prefix + meta.num : ''].filter(Boolean).join(' ');
-    const headerSub = `${meta.date}（${dayJP}）${scrimName ? ' | ' + scrimName : ''}`;
+  const meta = exportSession.meta;
+  const tableHTML = exportSession.tableHTML || '';
 
-    return `
-    <div class="session-block">
-      <div class="session-header">
-        <div class="session-date-block">
-          <span class="session-day-badge">${dayJP}</span>
-          <span class="session-date-text">${meta.date}</span>
-          <span class="session-name-text">${scrimName}</span>
-        </div>
-        <div class="session-stat-bar">
-          <div class="session-stat-item" style="background:#b89438"><span class="sv">${meta.finalPlace||'—'}</span><span class="sl">FINAL PLACE</span></div>
-          <div class="session-stat-item" style="background:#c04040"><span class="sv">${meta.kills||'—'}</span><span class="sl">KILLS</span></div>
-          <div class="session-stat-item" style="background:#3a6898"><span class="sv">${meta.placePT||'—'}</span><span class="sl">PLACE PT</span></div>
-          <div class="session-stat-item" style="background:#3a7848"><span class="sv">${meta.totalPT||'—'}</span><span class="sl">TOTAL PT</span></div>
-        </div>
-      </div>
-      <div class="session-sheet-wrap">${tableHTML || ''}</div>
-    </div>`;
-  }).join('');
+  // メタ情報
+  const dayMap = {0:'月',1:'火',2:'水',3:'木',4:'金',5:'土',6:'日'};
+  const d = new Date(dateStr);
+  const dayJP = dayMap[d.getDay()] || '';
+  const scrimLabel = meta.prefix === 'RF' ? 'Regional Finals' : (meta.scrim || '');
+  const numStr = meta.num ? (meta.prefix||'#') + meta.num : '';
+  const blockCard = [meta.block, meta.card].filter(Boolean).join(' · ');
+  const kills = meta.kills && String(meta.kills).includes('位') ? '—' : (meta.kills || '—');
 
-  // Get CSS from current page
-  const styleEl = document.querySelector('style');
-  const css = styleEl ? styleEl.outerHTML : '';
+  // CSS取得
+  const css = document.querySelector('style')?.outerHTML || '';
   const fonts = '<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">';
 
   const staticHTML = `<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>RESULT ${dateStr}</title>
 ${fonts}
 ${css}
+<style>body{margin:0;padding:0;} .static-wrap{padding:20px 16px;} .edit-only{display:none!important;} .meta-bar{display:none!important;}</style>
 </head>
 <body>
-<div class="container">
-  <div class="meta-bar" style="padding:16px 0 8px;font-family:'Barlow',sans-serif;font-size:11px;letter-spacing:0.2em;color:#888;text-transform:uppercase;">
-    R E S U L T
+<div class="static-wrap">
+  <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;color:#888;text-transform:uppercase;margin-bottom:4px;">${[dateStr+'（'+dayJP+'）', scrimLabel, numStr, blockCard].filter(Boolean).join('  |  ')}</div>
+  <div style="font-family:'Barlow',sans-serif;font-size:26px;font-weight:300;letter-spacing:8px;color:#333;margin-bottom:16px;text-transform:uppercase;">Result</div>
+  <div class="session-block">
+    <div class="session-header">
+      <div>
+        <div class="session-date-block">
+          <span class="session-day-badge">${dayJP}</span>
+          <span class="session-date-text">${dateStr}</span>
+          ${scrimLabel ? `<span style="font-size:13px;color:#888;letter-spacing:1px;margin-left:6px;">${scrimLabel} ${numStr}</span>` : ''}
+          ${blockCard ? `<span style="font-size:12px;color:#aaa;letter-spacing:2px;margin-left:8px;">${blockCard}</span>` : ''}
+          ${meta.resultUrl ? `<a href="${meta.resultUrl}" target="_blank" style="font-size:11px;color:#5878a0;letter-spacing:1px;text-decoration:none;margin-left:8px;">公式リザルト →</a>` : ''}
+        </div>
+      </div>
+      <div class="session-stat-bar">
+        <div class="session-stat-item" style="background:#b89438"><span class="sv">${meta.finalPlace||'—'}</span><span class="sl">FINAL PLACE</span></div>
+        <div class="session-stat-item" style="background:#b05858"><span class="sv">${kills}</span><span class="sl">KILLS</span></div>
+        <div class="session-stat-item" style="background:#5878a0"><span class="sv">${meta.placePT||'—'}</span><span class="sl">PLACE PT</span></div>
+        <div class="session-stat-item" style="background:#72986a"><span class="sv">${meta.totalPT||'—'}</span><span class="sl">TOTAL PT</span></div>
+      </div>
+    </div>
+    <div class="session-sheet-wrap">${tableHTML}</div>
   </div>
-  ${sessionsHTML}
 </div>
 </body>
 </html>`;
