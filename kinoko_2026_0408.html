@@ -428,21 +428,31 @@
 
 </style>
 <style>body{margin:0;padding:0;} .static-wrap{padding:20px 16px;} .edit-only{display:none!important;} .meta-bar{display:none!important;}</style>
+<script>
+// ダッシュボードにFINAL PLACEを通知
+window.addEventListener('load', function() {
+  const fp = document.querySelector('.sv');
+  if (fp && window.parent !== window) {
+    const date = document.title.replace('RESULT ','');
+    window.parent.postMessage({ type:'finalPlace', date: date, value: fp.textContent }, '*');
+  }
+});
+</script>
 </head>
 <body>
 <div class="static-wrap">
-  <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;color:#888;text-transform:uppercase;margin-bottom:4px;">2026/04/08（木）  |  Pro Scrim  |  #169  |  Block2 · BvsC</div>
+  <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;color:#888;text-transform:uppercase;margin-bottom:4px;">2026/04/08（木）  |  Pro Scrim  |  #169  |  Block1 · BvsC</div>
   <div style="font-family:'Barlow',sans-serif;font-size:26px;font-weight:300;letter-spacing:8px;color:#333;margin-bottom:16px;text-transform:uppercase;">Result</div>
   <div class="session-block">
     <div class="session-header">
       <div>
         <div class="session-date-block">
-          <span class="session-day-badge">木</span>
-          <span class="session-date-text">2026/04/08</span>
-          <span style="font-size:13px;color:#888;letter-spacing:1px;margin-left:6px;">Pro Scrim #169</span>
-          <span style="font-size:12px;color:#aaa;letter-spacing:2px;margin-left:8px;">Block2 · BvsC</span>
-          <a href="https://fightnt.escl.co.jp/scrims/1276653f-f145-446b-b8b3-499dc9e0fa5e/f6941d4d-d8f2-43d8-8f41-34ae1fe23721" target="_blank" style="font-size:11px;color:#5878a0;letter-spacing:1px;text-decoration:none;margin-left:8px;">公式リザルト →</a>
-        </div>
+  <span class="session-day-badge">木</span>
+  <span class="session-date-text">2026/04/08</span>
+  <span style="font-size:18px;font-weight:600;letter-spacing:1px;margin-left:10px;color:#222;">Pro Scrim #169</span>
+  <span style="font-size:12px;font-weight:600;color:#fff;background:#2a2a2a;padding:3px 10px;border-radius:4px;letter-spacing:1px;margin-left:8px;">Block1 · BvsC</span>
+  <a href="https://fightnt.escl.co.jp/scrims/1276653f-f145-446b-b8b3-499dc9e0fa5e/f6941d4d-d8f2-43d8-8f41-34ae1fe23721" target="_blank" style="font-size:12px;font-weight:500;color:#fff;background:#2a2a2a;padding:4px 12px;border-radius:4px;text-decoration:none;margin-left:8px;letter-spacing:0.5px;">🔗 公式リザルト</a>
+</div>
       </div>
       <div class="session-stat-bar">
         <div class="session-stat-item" style="background:#b89438"><span class="sv">7位</span><span class="sl">FINAL PLACE</span></div>
@@ -539,12 +549,12 @@
       <!-- RANK row — Result label spans 3 rows -->
       <tr class="row-rank">
         <td class="td-label" style="background:#c8a84a !important; color:#fff !important;" rowspan="3">Result</td>
-        <td colspan="4" class="rank-cell rank-bad">14位</td>
-        <td colspan="4" class="rank-cell rank-good">5位</td>
-        <td colspan="4" class="rank-cell rank-bad">12位</td>
-        <td colspan="4" class="rank-cell rank-good">4位</td>
-        <td colspan="4" class="rank-cell rank-mid">6位</td>
-        <td colspan="4" class="rank-cell rank-mid">9位</td>
+        <td colspan="4" class="rank-cell rank-bad" style="cursor: pointer;">14位</td>
+        <td colspan="4" class="rank-cell rank-good" style="cursor: pointer;">5位</td>
+        <td colspan="4" class="rank-cell rank-bad" style="cursor: pointer;">12位</td>
+        <td colspan="4" class="rank-cell rank-good" style="cursor: pointer;">4位</td>
+        <td colspan="4" class="rank-cell rank-mid" style="cursor: pointer;">6位</td>
+        <td colspan="4" class="rank-cell rank-mid" style="cursor: pointer;">9位</td>
         <td colspan="3" class="td-total-col"></td>
       </tr>
 
@@ -561,58 +571,58 @@
 
       <!-- RESULT data row -->
       <tr class="row-result">
-        <td class="k0-val">0</td><td class="p-val">1</td><td class="pt-val">1</td><td class="sub-val">1</td>
-        <td class="k-val">6</td><td class="p-val">4</td><td class="pt-val">10</td><td class="sub-val">11</td>
-        <td class="k-val">4</td><td class="p-val">1</td><td class="pt-val">5</td><td class="sub-val">16</td>
-        <td class="k-val">11</td><td class="p-val">5</td><td class="pt-val">16</td><td class="sub-val">32</td>
-        <td class="k-val">2</td><td class="p-val">3</td><td class="pt-val">5</td><td class="sub-val">37</td>
-        <td class="k-val">4</td><td class="p-val">2</td><td class="pt-val">6</td><td class="sub-val">43</td>
-        <td class="td-total-col">27</td><td>16</td><td>43</td>
+        <td class="k0-val" contenteditable="true">0</td><td class="k0-val" contenteditable="true">1</td><td class="k0-val" contenteditable="true">1</td><td class="k0-val" contenteditable="true">—</td>
+        <td class="k-val" contenteditable="true">6</td><td class="k0-val" contenteditable="true">4</td><td class="k0-val" contenteditable="true">10</td><td class="k0-val" contenteditable="true">—</td>
+        <td class="k-val" contenteditable="true">4</td><td class="k0-val" contenteditable="true">1</td><td class="k0-val" contenteditable="true">5</td><td class="k0-val" contenteditable="true">—</td>
+        <td class="k-val" contenteditable="true">11</td><td class="k0-val" contenteditable="true">5</td><td class="k0-val" contenteditable="true">16</td><td class="k0-val" contenteditable="true">—</td>
+        <td class="k-val" contenteditable="true">2</td><td class="k0-val" contenteditable="true">3</td><td class="k0-val" contenteditable="true">5</td><td class="k0-val" contenteditable="true">—</td>
+        <td class="k-val" contenteditable="true">4</td><td class="k0-val" contenteditable="true">2</td><td class="k0-val" contenteditable="true">6</td><td class="k0-val" contenteditable="true">—</td>
+        <td class="k0-val" contenteditable="true">27</td><td class="k0-val" contenteditable="true">16</td><td class="k0-val" contenteditable="true">43</td>
       </tr>
 
       <!-- KILLS initials -->
       <tr class="row-kills-init">
         <td class="td-label" style="background:#c8a84a !important; color:#fff !important;" rowspan="2">kills</td>
-        <td class="init c-t">L</td><td class="init c-p">M</td><td class="init c-a">L</td><td></td>
-        <td class="init c-t">L</td><td class="init c-p">M</td><td class="init c-a">L</td><td></td>
-        <td class="init c-t">L</td><td class="init c-p">M</td><td class="init c-a">L</td><td></td>
-        <td class="init c-t">L</td><td class="init c-p">M</td><td class="init c-a">L</td><td></td>
-        <td class="init c-t">L</td><td class="init c-p">M</td><td class="init c-a">L</td><td></td>
-        <td class="init c-t">L</td><td class="init c-p">M</td><td class="init c-a">L</td><td></td>
-        <td class="init c-t td-total-col">L</td><td class="init c-p">M</td><td class="init c-a">L</td>
+        <td class="init c-t"></td><td class="init c-p"></td><td class="init c-a"></td><td></td>
+        <td class="init c-t"></td><td class="init c-p"></td><td class="init c-a"></td><td></td>
+        <td class="init c-t"></td><td class="init c-p"></td><td class="init c-a"></td><td></td>
+        <td class="init c-t"></td><td class="init c-p"></td><td class="init c-a"></td><td></td>
+        <td class="init c-t"></td><td class="init c-p"></td><td class="init c-a"></td><td></td>
+        <td class="init c-t"></td><td class="init c-p"></td><td class="init c-a"></td><td></td>
+        <td class="init c-t td-total-col"></td><td class="init c-p"></td><td class="init c-a"></td>
       </tr>
       <tr class="row-kills">
-        <td class="kval c-t">0</td><td class="kval c-p">0</td><td class="kval c-a">0</td><td class="ktotal">0</td>
-        <td class="kval c-t">1</td><td class="kval c-p">3</td><td class="kval c-a">2</td><td class="ktotal">6</td>
-        <td class="kval c-t">0</td><td class="kval c-p">3</td><td class="kval c-a">1</td><td class="ktotal">4</td>
-        <td class="kval c-t">2</td><td class="kval c-p">7</td><td class="kval c-a">2</td><td class="ktotal">11</td>
-        <td class="kval c-t">1</td><td class="kval c-p">0</td><td class="kval c-a">1</td><td class="ktotal">2</td>
-        <td class="kval c-t">3</td><td class="kval c-p">0</td><td class="kval c-a">1</td><td class="ktotal">4</td>
-        <td class="kval c-t td-total-col">7</td><td class="kval c-p">13</td><td class="kval c-a">7</td>
+        <td class="kval c-t" contenteditable="true">0</td><td class="kval c-p" contenteditable="true">0</td><td class="kval c-a" contenteditable="true">0</td><td class="kval" contenteditable="true">0</td>
+        <td class="kval c-t" contenteditable="true">1</td><td class="kval c-p" contenteditable="true">3</td><td class="kval c-a" contenteditable="true">2</td><td class="kval" contenteditable="true">6</td>
+        <td class="kval c-t" contenteditable="true">0</td><td class="kval c-p" contenteditable="true">3</td><td class="kval c-a" contenteditable="true">1</td><td class="kval" contenteditable="true">4</td>
+        <td class="kval c-t" contenteditable="true">2</td><td class="kval c-p" contenteditable="true">7</td><td class="kval c-a" contenteditable="true">2</td><td class="kval" contenteditable="true">11</td>
+        <td class="kval c-t" contenteditable="true">1</td><td class="kval c-p" contenteditable="true">0</td><td class="kval c-a" contenteditable="true">1</td><td class="kval" contenteditable="true">2</td>
+        <td class="kval c-t" contenteditable="true">3</td><td class="kval c-p" contenteditable="true">0</td><td class="kval c-a" contenteditable="true">1</td><td class="kval" contenteditable="true">4</td>
+        <td class="kval" contenteditable="true">7</td><td class="kval" contenteditable="true">13</td><td class="kval" contenteditable="true">7</td>
       </tr>
 
       <!-- Assists -->
       <tr class="row-assists">
         <td class="td-label" style="background:#c8a84a !important; color:#fff !important;">Assists</td>
-        <td class="kval c-t">0</td><td class="kval c-p">0</td><td class="kval c-a">0</td><td class="ktotal">0</td>
-        <td class="kval c-t">3</td><td class="kval c-p">2</td><td class="kval c-a">1</td><td class="ktotal">6</td>
-        <td class="kval c-t">0</td><td class="kval c-p">1</td><td class="kval c-a">2</td><td class="ktotal">3</td>
-        <td class="kval c-t">5</td><td class="kval c-p">1</td><td class="kval c-a">4</td><td class="ktotal">10</td>
-        <td class="kval c-t">1</td><td class="kval c-p">0</td><td class="kval c-a">0</td><td class="ktotal">1</td>
-        <td class="kval c-t">0</td><td class="kval c-p">2</td><td class="kval c-a">2</td><td class="ktotal">4</td>
-        <td class="kval c-t td-total-col">9</td><td class="kval c-p">6</td><td class="kval c-a">9</td>
+        <td class="kval c-t" contenteditable="true">0</td><td class="kval c-p" contenteditable="true">0</td><td class="kval c-a" contenteditable="true">0</td><td class="kval" contenteditable="true">0</td>
+        <td class="kval c-t" contenteditable="true">3</td><td class="kval c-p" contenteditable="true">2</td><td class="kval c-a" contenteditable="true">1</td><td class="kval" contenteditable="true">6</td>
+        <td class="kval c-t" contenteditable="true">0</td><td class="kval c-p" contenteditable="true">1</td><td class="kval c-a" contenteditable="true">2</td><td class="kval" contenteditable="true">3</td>
+        <td class="kval c-t" contenteditable="true">5</td><td class="kval c-p" contenteditable="true">1</td><td class="kval c-a" contenteditable="true">4</td><td class="kval" contenteditable="true">10</td>
+        <td class="kval c-t" contenteditable="true">1</td><td class="kval c-p" contenteditable="true">0</td><td class="kval c-a" contenteditable="true">0</td><td class="kval" contenteditable="true">1</td>
+        <td class="kval c-t" contenteditable="true">0</td><td class="kval c-p" contenteditable="true">2</td><td class="kval c-a" contenteditable="true">2</td><td class="kval" contenteditable="true">4</td>
+        <td class="kval" contenteditable="true">9</td><td class="kval" contenteditable="true">6</td><td class="kval" contenteditable="true">9</td>
       </tr>
 
       <!-- DMG -->
       <tr class="row-dmg">
         <td class="td-label" style="background:#c8a84a !important; color:#fff !important;">Dmg</td>
-        <td class="dmg c-t">406</td><td class="dmg c-p">500</td><td class="dmg c-a">219</td><td class="dmg-total">1,125</td>
-        <td class="dmg c-t">3,503</td><td class="dmg c-p">1,172</td><td class="dmg c-a">1,276</td><td class="dmg-total">5,951</td>
-        <td class="dmg c-t">55</td><td class="dmg c-p">500</td><td class="dmg c-a">453</td><td class="dmg-total c-0">1,008</td>
-        <td class="dmg c-t">1,794</td><td class="dmg c-p">1,784</td><td class="dmg c-a">1,388</td><td class="dmg-total">4,966</td>
-        <td class="dmg c-t">1,203</td><td class="dmg c-p">688</td><td class="dmg c-a">184</td><td class="dmg-total">2,075</td>
-        <td class="dmg c-t">1,112</td><td class="dmg c-p">873</td><td class="dmg c-a">1,297</td><td class="dmg-total">3,282</td>
-        <td class="dmg c-t td-total-col">8,073</td><td class="dmg c-p">5,517</td><td class="dmg c-a">4,817</td>
+        <td class="dmg c-t" contenteditable="true">406</td><td class="dmg c-p" contenteditable="true">500</td><td class="dmg c-a" contenteditable="true">219</td><td class="dmg" contenteditable="true">1,125</td>
+        <td class="dmg c-t" contenteditable="true">3,503</td><td class="dmg c-p" contenteditable="true">1,172</td><td class="dmg c-a" contenteditable="true">1,276</td><td class="dmg" contenteditable="true">5,951</td>
+        <td class="dmg c-t" contenteditable="true">55</td><td class="dmg c-p" contenteditable="true">500</td><td class="dmg c-a" contenteditable="true">453</td><td class="dmg" contenteditable="true">1,008</td>
+        <td class="dmg c-t" contenteditable="true">1,794</td><td class="dmg c-p" contenteditable="true">1,784</td><td class="dmg c-a" contenteditable="true">1,388</td><td class="dmg" contenteditable="true">4,966</td>
+        <td class="dmg c-t" contenteditable="true">1,203</td><td class="dmg c-p" contenteditable="true">688</td><td class="dmg c-a" contenteditable="true">184</td><td class="dmg" contenteditable="true">2,075</td>
+        <td class="dmg c-t" contenteditable="true">1,112</td><td class="dmg c-p" contenteditable="true">873</td><td class="dmg c-a" contenteditable="true">1,297</td><td class="dmg" contenteditable="true">3,282</td>
+        <td class="dmg" contenteditable="true">8,073</td><td class="dmg" contenteditable="true">5,517</td><td class="dmg" contenteditable="true">4,817</td>
       </tr>
 
 
