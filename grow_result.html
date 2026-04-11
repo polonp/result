@@ -3405,29 +3405,57 @@ document.addEventListener('dblclick', function(e) {
 });
 // ── セッションをメイン表に読み込む ──────────────────────────
 function attachAllListeners() {
+  // BAN
   attachBanCellListeners();
+  // MAP
   attachMapCellListeners();
+
+  // CHAR cells
   document.querySelectorAll('.char-cell').forEach(td => {
     if (td.classList.contains('c-0')) return;
     td.style.cursor = 'pointer';
-    td.addEventListener('click', function(e) {
+    td.onclick = function(e) {
       activeCharCell = this;
+      activeBanCell = null;
       const picker = document.getElementById('charPicker');
       picker.style.left = (e.clientX + window.scrollX) + 'px';
       picker.style.top  = (e.clientY + window.scrollY + 8) + 'px';
+      picker.dataset.mode = '';
       picker.classList.add('visible');
-    });
+    };
   });
+
+  // POI cells
   document.querySelectorAll('.poi-cell').forEach(td => {
     td.style.cursor = 'pointer';
-    td.addEventListener('click', function(e) {
+    td.onclick = function(e) {
       e.stopPropagation();
       activePoiCell = this;
       const picker = document.getElementById('poiPicker');
       picker.style.left = Math.min(e.clientX + window.scrollX, window.innerWidth - 240) + 'px';
       picker.style.top  = (e.clientY + window.scrollY + 8) + 'px';
       picker.classList.add('visible');
-    });
+    };
+  });
+
+  // RANK cells — click to edit
+  document.querySelectorAll('.rank-cell').forEach(td => {
+    td.style.cursor = 'pointer';
+    td.onclick = function() {
+      const cur = this.textContent.trim();
+      const val = prompt('順位:', cur === '—' ? '' : cur.replace('位',''));
+      if (val === null) return;
+      this.textContent = val.trim() === '' ? '—' : val.trim() + '位';
+      updateTotals();
+    };
+  });
+
+  // Result cells (K/P/PT) — contenteditable
+  document.querySelectorAll('.row-result td, .row-kills td, .row-assists td, .row-dmg td').forEach(td => {
+    if (td.classList.contains('td-label') || td.classList.contains('td-total-col')) return;
+    if (td.classList.contains('sub-val') || td.classList.contains('ktotal') || td.classList.contains('dmg-total')) return;
+    td.contentEditable = 'true';
+    td.addEventListener('blur', () => { updateTotals(); updateSubtotals(); });
   });
 }
 
