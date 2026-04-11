@@ -2973,11 +2973,11 @@ ${css}
 <script>
 // ダッシュボードにFINAL PLACEを通知
 window.addEventListener('load', function() {
-  const fp = document.querySelector('.sv');
-  if (fp && window.parent !== window) {
-    const date = document.title.replace('RESULT ','');
-    window.parent.postMessage({ type:'finalPlace', date: date, value: fp.textContent }, '*');
-  }
+  if (window.parent !== window) {
+  const svs = document.querySelectorAll('.sv');
+  const date = document.title.replace('RESULT ','');
+  window.parent.postMessage({ type:'finalPlace', date:date, value:svs[0]?.textContent||'—', kills:svs[1]?.textContent||'—', placePT:svs[2]?.textContent||'—', totalPT:svs[3]?.textContent||'—' }, '*');
+}
 });
 <\/script>
 </head>
