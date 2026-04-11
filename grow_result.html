@@ -2914,7 +2914,11 @@ function renderSessions() {
             <div class="session-stat-item" style="background:#5878a0"><span class="sv">${meta.placePT||'—'}</span><span class="sl">Place PT</span></div>
             <div class="session-stat-item" style="background:#72986a"><span class="sv">${meta.totalPT||'—'}</span><span class="sl">Total PT</span></div>
           </div>
-          ${!isView ? `<button class="session-del-btn edit-only" onclick="deleteSession(${idx})">DEL</button>` : ''}
+          ${!isView ? `
+  <button class="session-del-btn edit-only" onclick="loadSessionToTable(${idx})" style="background:#4a7a9b;color:#fff;border-color:#4a7a9b;">LOAD</button>
+  <button class="session-del-btn edit-only" onclick="downloadSession(${idx})" style="background:#3a6a4a;color:#fff;border-color:#3a6a4a;">DL</button>
+  <button class="session-del-btn edit-only" onclick="deleteSession(${idx})">DEL</button>
+` : ''}
         </div>
       </div>
       <div class="session-sheet-wrap">${sanitizeSessionTableHTML(tableHTML)}</div>
