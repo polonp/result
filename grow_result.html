@@ -3403,7 +3403,157 @@ document.addEventListener('dblclick', function(e) {
     cell.dataset.helper = '1';
   }
 });
+// ── セッションをメイン表に読み込む ──────────────────────────
+function attachAllListeners() {
+  attachBanCellListeners();
+  attachMapCellListeners();
+  document.querySelectorAll('.char-cell').forEach(td => {
+    if (td.classList.contains('c-0')) return;
+    td.style.cursor = 'pointer';
+    td.addEventListener('click', function(e) {
+      activeCharCell = this;
+      const picker = document.getElementById('charPicker');
+      picker.style.left = (e.clientX + window.scrollX) + 'px';
+      picker.style.top  = (e.clientY + window.scrollY + 8) + 'px';
+      picker.classList.add('visible');
+    });
+  });
+  document.querySelectorAll('.poi-cell').forEach(td => {
+    td.style.cursor = 'pointer';
+    td.addEventListener('click', function(e) {
+      e.stopPropagation();
+      activePoiCell = this;
+      const picker = document.getElementById('poiPicker');
+      picker.style.left = Math.min(e.clientX + window.scrollX, window.innerWidth - 240) + 'px';
+      picker.style.top  = (e.clientY + window.scrollY + 8) + 'px';
+      picker.classList.add('visible');
+    });
+  });
+}
 
+function loadSessionToTable(idx) {
+  if (!confirm('このセッションを入力欄に読み込みますか？\n現在の入力内容は上書きされます。')) return;
+  const sessions = loadSessions();
+  const s = sessions[idx];
+  if (!s) return;
+  const { meta, tableHTML } = s;
+
+  // メタ入力欄を復元
+  const set = (id, val) => { const el = document.getElementById(id); if (el) el.value = val || ''; };
+  set('meta-date',       meta.date);
+  set('meta-scrim',      meta.scrim);
+  set('meta-prefix',     meta.prefix);
+  set('meta-num',        meta.num);
+  set('meta-block',      meta.block);
+  set('meta-card',       meta.card);
+  set('meta-result-url', meta.resultUrl);
+  updateHeader();
+
+  // トータルバーを復元
+  const fp = document.getElementById('total-finalplace');
+  if (fp) fp.textContent = meta.finalPlace || '—';
+  const vSpans = document.querySelectorAll('.total-item .v');
+  if (vSpans[1]) vSpans[1].textContent = meta.kills   || '—';
+  if (vSpans[2]) vSpans[2].textContent = meta.placePT || '—';
+  if (vSpans[3]) vSpans[3].textContent = meta.totalPT || '—';
+
+  // テーブルを置き換え
+  const wrapper = document.querySelector('.sheet-wrap');
+  if (wrapper && tableHTML) {
+    const div = document.createElement('div');
+    div.innerHTML = sanitizeSessionTableHTML(tableHTML);
+    const newTable = div.querySelector('table');
+    const oldTable = wrapper.querySelector('table');
+    if (oldTable && newTable) {
+      wrapper.replaceChild(newTable, oldTable);
+      attachAllListeners();
+    }
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── 特定セッションをダウンロード ────────────────────────────
+function downloadSession(idx) {
+  const sessions = loadSessions();
+  const exportSession = sessions[idx];
+  if (!exportSession) return;
+
+  const meta      = exportSession.meta;
+  const tableHTML = exportSession.tableHTML || '';
+  const dateStr   = meta.date || '';
+  const rawDate   = dateStr.replace(/\//g, '-');
+  const refDate   = rawDate ? new Date(rawDate) : new Date();
+  const yyyy = refDate.getFullYear();
+  const mm   = String(refDate.getMonth() + 1).padStart(2, '0');
+  const dd   = String(refDate.getDate()).padStart(2, '0');
+  const filename  = `kinoko_${yyyy}_${mm}${dd}.html`;
+
+  const dayMap = {0:'月',1:'火',2:'水',3:'木',4:'金',5:'土',6:'日'};
+  const d = new Date(dateStr.replace(/\//g,'-'));
+  const dayJP = dayMap[d.getDay()] || '';
+  const scrimLabel = meta.prefix === 'RF' ? 'Regional Finals' : (meta.scrim || '');
+  const numStr  = meta.num ? (meta.prefix||'#') + meta.num : '';
+  const blockCard = [meta.block, meta.card].filter(Boolean).join(' · ');
+  const kills   = meta.kills && String(meta.kills).includes('位') ? '—' : (meta.kills || '—');
+
+  const css   = document.querySelector('style')?.outerHTML || '';
+  const fonts = '<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">';
+
+  const staticHTML = `<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>RESULT ${dateStr}</title>
+${fonts}
+${css}
+<style>body{margin:0;padding:0;} .static-wrap{padding:20px 16px;} .edit-only{display:none!important;} .meta-bar{display:none!important;}</style>
+<script>
+window.addEventListener('load', function() {
+  const fp = document.querySelector('.sv');
+  if (fp && window.parent !== window) {
+    const date = document.title.replace('RESULT ','');
+    window.parent.postMessage({ type:'finalPlace', date: date, value: fp.textContent }, '*');
+  }
+});
+<\/script>
+</head>
+<body>
+<div class="static-wrap">
+  <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;color:#888;text-transform:uppercase;margin-bottom:4px;">${[dateStr+'（'+dayJP+'）', scrimLabel, numStr, blockCard].filter(Boolean).join('  |  ')}</div>
+  <div style="font-family:'Barlow',sans-serif;font-size:26px;font-weight:300;letter-spacing:8px;color:#333;margin-bottom:16px;text-transform:uppercase;">Result</div>
+  <div class="session-block">
+    <div class="session-header">
+      <div>
+        <div class="session-date-block">
+          <span class="session-day-badge">${dayJP}</span>
+          <span class="session-date-text">${dateStr}</span>
+          <span style="font-size:18px;font-weight:600;letter-spacing:1px;margin-left:10px;color:#222;">${scrimLabel} ${numStr}</span>
+          ${blockCard ? `<span style="font-size:12px;font-weight:600;color:#fff;background:#2a2a2a;padding:3px 10px;border-radius:4px;letter-spacing:1px;margin-left:8px;">${blockCard}</span>` : ''}
+          ${meta.resultUrl ? `<a href="${meta.resultUrl}" target="_blank" style="font-size:12px;font-weight:500;color:#fff;background:#2a2a2a;padding:4px 12px;border-radius:4px;text-decoration:none;margin-left:8px;">🔗 公式リザルト</a>` : ''}
+        </div>
+      </div>
+      <div class="session-stat-bar">
+        <div class="session-stat-item" style="background:#b89438"><span class="sv">${meta.finalPlace||'—'}</span><span class="sl">FINAL PLACE</span></div>
+        <div class="session-stat-item" style="background:#b05858"><span class="sv">${kills}</span><span class="sl">KILLS</span></div>
+        <div class="session-stat-item" style="background:#5878a0"><span class="sv">${meta.placePT||'—'}</span><span class="sl">PLACE PT</span></div>
+        <div class="session-stat-item" style="background:#72986a"><span class="sv">${meta.totalPT||'—'}</span><span class="sl">TOTAL PT</span></div>
+      </div>
+    </div>
+    <div class="session-sheet-wrap">${tableHTML}</div>
+  </div>
+</div>
+</body>
+</html>`;
+
+  const blob = new Blob([staticHTML], { type: 'text/html;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
 </script>
 </body>
 </html>
