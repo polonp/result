@@ -2985,12 +2985,12 @@ window.addEventListener('load', function() {
     <div class="session-header">
       <div>
         <div class="session-date-block">
-          <span class="session-day-badge">${dayJP}</span>
-          <span class="session-date-text">${dateStr}</span>
-          ${meta.resultUrl ? `<span style="font-size:15px;color:#5878a0;letter-spacing:1px;margin-left:8px;cursor:pointer;text-decoration:underline;" onclick="window.open('${meta.resultUrl}','_blank')">${scrimLabel} ${numStr} 公式リザルト</span>` : `<span style="font-size:15px;color:#888;letter-spacing:1px;margin-left:8px;">${scrimLabel} ${numStr}</span>`}
-          ${blockCard ? `<span style="font-size:12px;color:#aaa;letter-spacing:2px;margin-left:8px;">${blockCard}</span>` : ''}
-          ${meta.resultUrl ? `<a href="${meta.resultUrl}" target="_blank" style="font-size:11px;color:#5878a0;letter-spacing:1px;text-decoration:none;margin-left:8px;">公式リザルト →</a>` : ''}
-        </div>
+  <span class="session-day-badge">${dayJP}</span>
+  <span class="session-date-text">${dateStr}</span>
+  ${meta.resultUrl ? `<span style="font-size:18px;font-weight:600;letter-spacing:1px;margin-left:10px;color:#222;">${scrimLabel} ${numStr}</span>` : `<span style="font-size:18px;font-weight:600;letter-spacing:1px;margin-left:10px;color:#222;">${scrimLabel} ${numStr}</span>`}
+  ${blockCard ? `<span style="font-size:12px;font-weight:600;color:#fff;background:#2a2a2a;padding:3px 10px;border-radius:4px;letter-spacing:1px;margin-left:8px;">${blockCard}</span>` : ''}
+  ${meta.resultUrl ? `<a href="${meta.resultUrl}" target="_blank" style="font-size:12px;font-weight:500;color:#fff;background:#2a2a2a;padding:4px 12px;border-radius:4px;text-decoration:none;margin-left:8px;letter-spacing:0.5px;">🔗 公式リザルト</a>` : ''}
+</div>
       </div>
       <div class="session-stat-bar">
         <div class="session-stat-item" style="background:#b89438"><span class="sv">${meta.finalPlace||'—'}</span><span class="sl">FINAL PLACE</span></div>
