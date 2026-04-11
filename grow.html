@@ -759,7 +759,24 @@ document.addEventListener('click', function(e) {
   const filename = 'kinoko_2026_' + mm + dd + '.html?view';  document.getElementById('result-overlay-frame').src = filename;
   document.getElementById('result-overlay').style.display = 'flex';
 });
-
+// kinoko順位を自動取得
+function preloadKinokoRanks() {
+  document.querySelectorAll('.result-card').forEach(card => {
+    const dateEl = card.querySelector('.card-date');
+    if (!dateEl) return;
+    const parts = dateEl.textContent.replace(/\s/g,'').split('/');
+    if (parts.length < 2) return;
+    const mm = parts[0].padStart(2,'0');
+    const dd = parts[1].padStart(2,'0');
+    const filename = 'kinoko_2026_' + mm + dd + '.html';
+    const iframe = document.createElement('iframe');
+    iframe.src = filename;
+    iframe.style.cssText = 'position:fixed;width:1px;height:1px;opacity:0;pointer-events:none;';
+    document.body.appendChild(iframe);
+    setTimeout(() => iframe.remove(), 8000);
+  });
+}
+window.addEventListener('load', () => setTimeout(preloadKinokoRanks, 1000));
 </script>
 
 <div id="copyright">©2026 polonp</div>
