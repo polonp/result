@@ -555,7 +555,7 @@ function buildMonths(year) {
       history.push("month");
       c.querySelectorAll(".sub-panel").forEach(x => x.classList.remove("visible"));
       showScreen("week");
-      navBtn.textContent = "← BACK";
+      navBtn.textContent = "← BACK";navBtn.style.display = "block";
       animatePanels(document.getElementById("week-container-sel"));
     });
   }
@@ -565,7 +565,7 @@ function buildMonths(year) {
 // Build week buttons dynamically — filtered for split boundaries
 function buildWeeks(year, month) {
   const c = document.getElementById("week-container-sel");
-  c.innerHTML = "";
+  c.innerHTML = "";navBtn.style.display = "block"; 
   const total = weeksInMonth(year, month);
   let startW = 1;
   let endW   = total;
@@ -699,7 +699,7 @@ sp1.addEventListener("click", () => {
   document.querySelectorAll("#sub-screen .sub-panel").forEach(p => p.classList.remove("visible"));
   document.getElementById("month-split-label").textContent = currentSplit;
   showScreen("month");
-  navBtn.textContent = "← BACK";
+  navBtn.textContent = "← BACK";navBtn.style.display = "block";
   buildMonths(2026);
 });
 
