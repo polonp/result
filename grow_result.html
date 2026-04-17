@@ -66,7 +66,7 @@
   .header-left .sub { font-size:10px; letter-spacing:4px; color:var(--muted); margin-bottom:8px; text-transform:uppercase; font-family:"Barlow",sans-serif; font-weight:300; }
   .header-left h1 { font-size:32px; letter-spacing:8px; color:var(--text); text-transform:uppercase; font-family:"Barlow",sans-serif; font-weight:300; line-height:1; }
   .total-bar { display:flex; gap:0; border-radius:2px; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,0.12); }
-  .total-item { text-align:center; padding:10px 0; border-right:1px solid rgba(255,255,255,0.15); flex:1; min-width:90px; }
+  .total-item { text-align:center; padding:10px 0; border-right:1px solid rgba(255,255,255,0.15); flex:1 1 0; min-width:0; width:0; }
   .total-item:last-child { border-right:none; }
   .total-item .v { font-size:22px; display:block; color:#fff; letter-spacing:2px; font-family:"Barlow",sans-serif; font-weight:300; }
   .total-item .l { font-size:8px; letter-spacing:3px; color:rgba(255,255,255,0.6); text-transform:uppercase; margin-top:3px; font-family:"Barlow",sans-serif; }
@@ -148,6 +148,9 @@
   tbody[data-helper-p] .row-kills td.kval.c-p, tbody[data-helper-p] .row-assists td.kval.c-p { background:var(--cp-hlite) !important; }
   tbody[data-helper-p] .row-dmg td.dmg.c-p { background:var(--cp-hlite) !important; }
   tbody[data-helper-a] .row-kills td.kval.c-a, tbody[data-helper-a] .row-assists td.kval.c-a { background:var(--ca-hlite) !important; }
+  /* Total col kills/assists — grey */
+  .row-kills .kval.td-total-col, .row-kills .kval.td-total-col + td, .row-kills .kval.td-total-col + td + td,
+  .row-assists .kval.td-total-col, .row-assists .kval.td-total-col + td, .row-assists .kval.td-total-col + td + td { background:var(--kppt-bg) !important; }
   tbody[data-helper-a] .row-dmg td.dmg.c-a { background:var(--ca-hlite) !important; }
 
   /* Helper init color */
@@ -664,7 +667,7 @@
         <td class="td-label" style="background:#c8a84a !important; color:#fff !important;">Dmg</td>
         <td class="dmg c-t">723</td><td class="dmg c-p">323</td><td class="dmg c-a">699</td><td class="dmg-total">1,745</td>
         <td class="dmg c-t">1,050</td><td class="dmg c-p">1,177</td><td class="dmg c-a">1,027</td><td class="dmg-total">3,254</td>
-        <td class="dmg c-t">0</td><td class="dmg c-p">0</td><td class="dmg c-a">0</td><td class="dmg-total c-0">0</td>
+        <td class="dmg c-t">0</td><td class="dmg c-p">0</td><td class="dmg c-a">0</td><td class="dmg-total">0</td>
         <td class="dmg c-t">264</td><td class="dmg c-p">344</td><td class="dmg c-a">238</td><td class="dmg-total">846</td>
         <td class="dmg c-t">359</td><td class="dmg c-p">552</td><td class="dmg c-a">107</td><td class="dmg-total">1,018</td>
         <td class="dmg c-t">1,009</td><td class="dmg c-p">1,047</td><td class="dmg c-a">1,368</td><td class="dmg-total">3,424</td>
