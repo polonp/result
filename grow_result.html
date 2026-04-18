@@ -65,7 +65,7 @@
   header { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:18px; flex-wrap:wrap; gap:14px; border-bottom:1px solid var(--border); padding-bottom:16px; }
   .header-left .sub { font-size:10px; letter-spacing:4px; color:var(--muted); margin-bottom:8px; text-transform:uppercase; font-family:"Barlow",sans-serif; font-weight:300; }
   .header-left h1 { font-size:32px; letter-spacing:8px; color:var(--text); text-transform:uppercase; font-family:"Barlow",sans-serif; font-weight:300; line-height:1; }
-  .total-bar { display:flex; gap:0; border-radius:2px; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,0.12); }
+  .total-bar { display:flex; gap:0; border-radius:2px; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,0.12); min-width:280px; }
   .total-item { text-align:center; padding:10px 0; border-right:1px solid rgba(255,255,255,0.15); flex:1 1 0; min-width:0; width:0; }
   .total-item:last-child { border-right:none; }
   .total-item .v { font-size:22px; display:block; color:#fff; letter-spacing:2px; font-family:"Barlow",sans-serif; font-weight:300; }
@@ -2547,7 +2547,7 @@ function clearAll() {
 
   // Reset final place
   const fp = document.getElementById('total-finalplace');
-  if (fp) fp.textContent = '—';
+  if (fp) fp.textContent = '—';['t','p','a'].forEach(renderHelperState); 
 }
 
 
@@ -3496,6 +3496,7 @@ function loadSessionToTable(idx) {
     if (oldTable && newTable) {
       wrapper.replaceChild(newTable, oldTable);
       attachAllListeners();
+      ['t','p','a'].forEach(renderHelperState);
     }
   }
 
