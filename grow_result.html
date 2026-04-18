@@ -1601,7 +1601,7 @@ function applyHelper(role) {
   const input = document.getElementById('ps-helper-' + role);
   const name = input.value.trim();
   helperNames[role] = name;
-  renderHelperState(role);
+  ['t','p','a'].forEach(renderHelperState);
   // 履歴に保存
   if (name) {
     const key = 'helper_history_' + role;
