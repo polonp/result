@@ -437,14 +437,13 @@
   <div class="meta-bar edit-only">
     <input class="meta-input date" type="text" id="meta-date">
     <span class="meta-sep">|</span>
-    <input class="meta-input scrim-name" type="text" placeholder="SCRIM NAME" id="meta-scrim" list="scrim-options">
-   <datalist id="scrim-options">
-  　<option value="Pro Scrim">
-  　<option value="Pro League">
-  　<option value="Playoffs">
- 　 <option value="G1 Scrim">
- 　 <option value="G2 Scrim">
-</datalist>
+  <select class="meta-input scrim-name" id="meta-scrim" style="font-family:'Barlow','Zen Kaku Gothic New',sans-serif;font-size:13px;padding:6px 8px;background:var(--panel);border:1px solid var(--border);border-radius:4px;color:var(--text);outline:none;">
+  　<option value="Pro Scrim">Pro Scrim</option>
+  　<option value="Pro League">Pro League</option>
+  　<option value="Playoffs">Playoffs</option>
+  　<option value="G1 Scrim">G1 Scrim</option>
+  　<option value="G2 Scrim">G2 Scrim</option>
+　</select> 
     <div style="display:flex;align-items:center;background:var(--panel);border:1px solid var(--border);border-radius:4px;overflow:hidden;">
       <select id="meta-prefix" style="background:var(--panel);border:none;border-right:1px solid var(--border);color:var(--muted);font-family:'Barlow','Zen Kaku Gothic New',sans-serif;font-size:14px;padding:6px 8px;outline:none;cursor:pointer;">
         <option value="#">#</option>
